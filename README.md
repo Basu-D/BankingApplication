@@ -34,9 +34,21 @@ vertx-banking-api/
 │ ├── java/
 │ │ └── com/example/
 │ │   ├── banking/
-│ │   │ ├── MainVerticle.java # App entry point
-│ │   │ ├── AccountService.java # Business logic (in-memory store)
-│ │   │ └── AccountController.java # HTTP route handlers
+│ │   │ ├── controller/
+│ │   │ │ └── AccountController.java # HTTP route handlers
+│ │   │ ├── exception/
+│ │   │ │ ├── AccountNotFoundException.java
+│ │   │ │ └── InsufficientBalanceException.java
+│ │   │ ├── router/
+│ │   │ │ └── AccountRouter.java
+│ │   │ ├── service/
+│ │   │ │ └── AccountService.java # Business logic (in-memory store)
+│ │   │ ├── util/
+│ │   │ │ ├── AccountHelper.java
+│ │   │ │ ├── ResponseUtil.java
+│ │   │ │ └── ValidationUtil.java
+│ │   │ ├── verticles/
+│ │   │ │ └── MainVerticle.java # App entry point
 │ │   └── Launcher.java # Verticle launcher
 │ └── resources/
 └── build.gradle
@@ -121,3 +133,6 @@ If an operation fails (e.g., insufficient funds), the API will return a 400 Bad 
 1. Ensure you have [Java 17+](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html) and [Gradle](https://gradle.org/install/) installed.
 2. Run ./gradlew run
 3. The server will start on `http://localhost:8888`.
+
+## 📬 Postman Collection
+A ready-to-use Postman collection is available at `src/test/resources/postman` to test the APIs easily.
