@@ -5,8 +5,11 @@ import io.vertx.ext.web.RoutingContext;
 import org.example.banking.exception.AccountNotFoundException;
 import org.example.banking.exception.InsufficientBalanceException;
 import org.example.banking.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SafeHandler {
+    private static final Logger logger = LoggerFactory.getLogger(SafeHandler.class);
     public static Handler<RoutingContext> wrap(RoutingHandler handler) {
         return context -> {
             try {
@@ -17,7 +20,7 @@ public class SafeHandler {
                 ResponseUtil.sendErrorResponse(context, 404, sanitizeMessage(e.getMessage()));
             } catch (Exception e) {
                 // log error
-                System.out.println(e.getMessage());
+                logger.error(e.getMessage());
                 ResponseUtil.sendErrorResponse(context, 500, "Something went wrong.");
             }
         };

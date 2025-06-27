@@ -3,13 +3,15 @@ package org.example.banking.verticles;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.BodyHandler;
 import org.example.banking.controller.AccountController;
-import org.example.banking.controller.SafeHandler;
 import org.example.banking.router.AccountRouter;
 import org.example.banking.service.AccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainVerticle extends AbstractVerticle {
+
+    private final Logger logger = LoggerFactory.getLogger(MainVerticle.class);
 
     @Override
     public void start(Promise<Void> startPromise) {
@@ -21,10 +23,10 @@ public class MainVerticle extends AbstractVerticle {
                 .requestHandler(router)
                 .listen(8888, http -> {
                     if (http.succeeded()) {
-                        System.out.println("HTTP Server started on port 8888");
+                        logger.info("HTTP Server started on port 8888");
                         startPromise.complete();
                     } else {
-                        System.out.println("HTTP Server failed to start : " + http.cause());
+                        logger.error("HTTP Server failed to start : " + http.cause());
                         startPromise.fail(http.cause());
                     }
                 });
